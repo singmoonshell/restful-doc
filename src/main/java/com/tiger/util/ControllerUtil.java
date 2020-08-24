@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
+import com.tiger.canstant.SpringAnnotation;
 
 
 /**
@@ -16,15 +17,6 @@ import com.intellij.psi.PsiMethod;
  */
 public class ControllerUtil {
 
-    public static final String ANNOTATION_RESCONTROLLER = "org.springframework.web.bind.annotation.RestController";
-
-    public static final String ANNOTATION_POSTMAPPING = "org.springframework.web.bind.annotation.PostMapping";
-
-    public static final String ANNOTATION_GETMAPPING = "org.springframework.web.bind.annotation.GetMapping";
-
-    public static final String ANNOTATION_REQUESTMAPPING = "org.springframework.web.bind.annotation.RequestMapping";
-
-    //public static final String ANNOTATION_REQUESTBODY = "org.springframework.web.bind.annotation.RequestBody";
 
     /**
      * 判断选中的是否是controller类
@@ -37,7 +29,7 @@ public class ControllerUtil {
             return null;
         }
         PsiElement psiElement = CommonDataKeys.PSI_ELEMENT.getData(e.getDataContext());
-        if (psiElement instanceof PsiClass && PsiUtil.getPsiAnnotation((PsiClass) psiElement, ANNOTATION_RESCONTROLLER) != null) {
+        if (psiElement instanceof PsiClass && PsiUtil.getPsiAnnotation((PsiClass) psiElement, SpringAnnotation.ANNOTATION_RESTCONTROLLER) != null) {
             return (PsiClass) psiElement;
         }
         return null;
@@ -57,10 +49,10 @@ public class ControllerUtil {
         if (psiElement instanceof PsiMethod) {
             PsiMethod psiMethod = (PsiMethod) psiElement;
             PsiElement parent = psiMethod.getParent();
-            if (parent instanceof PsiClass && PsiUtil.getPsiAnnotation((PsiClass) parent, ANNOTATION_RESCONTROLLER) != null
-                    && (PsiUtil.getPsiAnnotation(psiMethod, ANNOTATION_POSTMAPPING) != null
-                    || PsiUtil.getPsiAnnotation(psiMethod, ANNOTATION_GETMAPPING) != null
-                    || PsiUtil.getPsiAnnotation(psiMethod, ANNOTATION_REQUESTMAPPING) != null)) {
+            if (parent instanceof PsiClass && PsiUtil.getPsiAnnotation((PsiClass) parent, SpringAnnotation.ANNOTATION_RESTCONTROLLER) != null
+                    && (PsiUtil.getPsiAnnotation(psiMethod, SpringAnnotation.ANNOTATION_POSTMAPPING) != null
+                    || PsiUtil.getPsiAnnotation(psiMethod, SpringAnnotation.ANNOTATION_GETMAPPING) != null
+                    || PsiUtil.getPsiAnnotation(psiMethod, SpringAnnotation.ANNOTATION_REQUESTMAPPING) != null)) {
                 return psiMethod;
             }
         }

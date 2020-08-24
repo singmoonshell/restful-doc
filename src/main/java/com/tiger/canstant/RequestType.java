@@ -13,29 +13,37 @@ public enum RequestType {
      * <p>
      * 对应GetMapping
      */
-    GET("GET"),
+    GET("GET", "org.springframework.web.bind.annotation.GetMapping"),
 
     /**
      * POST请求
      * <p>
      * 对应PostMapping
      */
-    POST("POST"),
+    POST("POST", "org.springframework.web.bind.annotation.PostMapping"),
 
     /**
      * 不限制类型
      * <p>
      * 对应RequestMapping
      */
-    ALL("GET/POST");
-
-    RequestType(String desc) {
-        this.desc = desc;
-    }
+    ALL("GET/POST", "org.springframework.web.bind.annotation.RequestMapping");
 
     private final String desc;
 
+    private final String annotation;
+
     public String getDesc() {
         return this.desc;
+    }
+
+    public String getAnnotation() {
+        return this.annotation;
+    }
+
+
+    RequestType(String desc, String annotation) {
+        this.desc = desc;
+        this.annotation = annotation;
     }
 }

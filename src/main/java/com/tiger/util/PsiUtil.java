@@ -1,6 +1,5 @@
 package com.tiger.util;
 
-import com.intellij.lang.jvm.annotation.JvmAnnotationAttribute;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.LangDataKeys;
@@ -219,21 +218,18 @@ public class PsiUtil {
      * @return
      */
     public static String getPsiAnnotationValueByAttr(PsiAnnotation psiAnnotation, String attrName) {
-        List<JvmAnnotationAttribute> attributes = psiAnnotation.getAttributes();
-        for (JvmAnnotationAttribute attr : attributes) {
-            if (attr.getAttributeName().trim().equals(attrName.trim())) {
-                String txt = "";
-                //String txt = attr.getAttributeValue().getSourceElement().getText();
-                if (txt.contains("\"")) {
-                    txt = txt.substring(1, txt.length() - 1);
-                }
-                if (txt != null && txt.length() > 0) {
-                    txt = txt.trim();
-                }
-                return txt;
-            }
+        PsiAnnotationMemberValue attributeValue = psiAnnotation.findDeclaredAttributeValue(attrName);
+        if (attributeValue == null) {
+            return "";
         }
-        return null;
+        String txt = attributeValue.getText();
+        if (txt.contains("\"")) {
+            txt = txt.substring(1, txt.length() - 1);
+        }
+        if (txt.length() > 0) {
+            txt = txt.trim();
+        }
+        return txt;
     }
 
 

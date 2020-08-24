@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class MethodDefinition {
 
+    private Integer index;
+
     /**
      * 方法名
      */
@@ -43,6 +45,13 @@ public class MethodDefinition {
      */
     private List<FieldDefinition> response;
 
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
 
     public String getMethodName() {
         return methodName;
